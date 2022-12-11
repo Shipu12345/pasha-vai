@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "40440:80"
+    volumes:
+      - .:/app

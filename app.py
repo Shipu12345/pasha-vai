@@ -16,9 +16,9 @@ app = App(token=bot_token)
 
 @app.message(re.compile(".*"))
 def message_hello(message, say):
-    if message['user'] == "U03S846QDUM":
-        say(f"<@{message['user']}>, tui nayok! Ay mair kha.")
-        return
+    # if message['user'] == "U03S846QDUM":
+    #     say(f"<@{message['user']}>, tui nayok! Ay mair kha.")
+    #     return
 
     text = message['text'].lower()
     if re.compile(r"^hi").match(text):
