@@ -1,11 +1,12 @@
-from slack_bolt import App
-from slack_bolt.adapter.socket_mode import SocketModeHandler
+import os
 import re
 import datetime
+from time import sleep
+from slack_bolt import App
+from slack_bolt.adapter.socket_mode import SocketModeHandler
+from config import Envs, Credential
 from duckduckgo_search import ddg
 from dotenv import load_dotenv
-import os
-
 load_dotenv()
 
 bot_token = os.getenv("BOT_TOKEN")
@@ -34,6 +35,33 @@ def message_hello(message, say):
         for x in ddg(text, max_results=3):
             res += f"{x['href']}\n"
         say(res)
+        return
+    
+    if re.compile(r"^env:").match(text):
+        if "ranks" in text.split():
+            say(f"<@{message['user']}>! Acca Bhaiya, ekhon e diye dicci.\n")
+            sleep(5)
+            say("```" + Envs().get_ranks_env() + "```")
+            return
+        
+        if "wegro" in text.split():
+            say(f"<@{message['user']}>! Acca Bhaiya, ekhon e diye dicci.\n")
+            sleep(5)
+            say("```" + Envs().get_wegro_env() + "```")
+            return
+        
+        say(f"<@{message['user']}>! Valo bujhi Nai Bhaiya, Abar bolen.\n")
+        return
+    
+    if re.compile(r"^credential:").match(text):
+        words = text.split()
+        if "dev" in words and ("db" in words or "database" in words) and "sheba" in words:
+            say(f"<@{message['user']}>! Acca Bhaiya, ekhon e diye dicci.\n")
+            sleep(5)
+            say("```" + Credential().get_sheba_dev() + "```")
+            return
+        
+        say(f"<@{message['user']}>! Valo bujhi Nai Bhaiya, Abar bolen.\n")
         return
 
     say(f"Please, kindly elaborate your need.")
