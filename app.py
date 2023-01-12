@@ -27,18 +27,18 @@ def message_hello(message, say):
         say(f"Hey, <@{message['user']}>! What can I do for you?")
         return
     
-    if re.compile(r"^how are you").match(text):
+    elif re.compile(r"^how are you").match(text):
         say(f"I'm fine. Thank you.")
         return
     
-    if re.compile(r"^help:").match(text):
+    elif re.compile(r"^help:").match(text):
         res = ''
         for x in ddg(text, max_results=3):
             res += f"{x['href']}\n"
         say(res)
         return
     
-    if re.compile(r"^env:").match(text):
+    elif re.compile(r"^env:").match(text):
         if "ranks" in text.split():
             say(f"<@{message['user']}>! Acca Bhaiya, ekhon e diye dicci.\n")
             sleep(5)
@@ -54,7 +54,7 @@ def message_hello(message, say):
         say(f"<@{message['user']}>! Valo bujhi Nai Bhaiya, Abar bolen.\n")
         return
     
-    if re.compile(r"^credential:").match(text):
+    elif re.compile(r"^credential:").match(text):
         words = text.split()
         if "dev" in words and ("db" in words or "database" in words) and "sheba" in words:
             say(f"<@{message['user']}>! Acca Bhaiya, ekhon e diye dicci.\n")
@@ -65,9 +65,10 @@ def message_hello(message, say):
         say(f"<@{message['user']}>! Valo bujhi Nai Bhaiya, Abar bolen.\n")
         return
 
-    if text:
+    elif text:
         gpt_res = get_chatGPT_result(text)
-        return say("```" + gpt_res + "```")
+        say("```" + gpt_res + "```")
+        return
 
     say(f"Please, kindly elaborate your need.")
     
