@@ -6,6 +6,7 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from config import Envs, Credential
 from duckduckgo_search import ddg
+from gpt import get_chatGPT_result
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -63,6 +64,10 @@ def message_hello(message, say):
         
         say(f"<@{message['user']}>! Valo bujhi Nai Bhaiya, Abar bolen.\n")
         return
+
+    if text:
+        gpt_res = get_chatGPT_result(text)
+        return say("```" + gpt_res + "```")
 
     say(f"Please, kindly elaborate your need.")
     
